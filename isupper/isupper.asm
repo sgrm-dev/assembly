@@ -9,7 +9,6 @@ section .text
 global _start
 
 isupper:
-
 	mov rax, rdi
 
 	cmp al, 0x41
@@ -17,36 +16,29 @@ isupper:
 	jmp false
 
 comparison_two:
-
 	cmp al, 0x5a
 	jbe true
 	jmp false
 
 true:
-
 	mov rax, 0x01
 	jmp end
 
 false:
-
 	mov rax, 0x00
 
-end:
-	
+end:	
 	ret
 
 _start:
-
 	mov rcx, 0x00
 	mov rdx, 0x00
 	jmp iterate
 
 increment:
-
 	inc rdx
 
 iterate:
-
 	lea rbx, [demo0+rcx]
 	mov rdi, [rbx]
 
@@ -62,7 +54,6 @@ iterate:
 	jmp iterate
 
 exit:
-
 	mov rax, 0x3c
 	xor rdi, rdi
 	syscall
