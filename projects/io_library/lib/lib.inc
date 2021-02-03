@@ -174,5 +174,60 @@ print_uint:
 	pop rbx ; get the last rbx value from the stack
 	ret
 
+print_int:
+
+	xor rax, rax
+	xor rbx, rbx
+	push rbx
+
+	cmp rdi, 0x0
+	jl .to_unsigned
+	jge .print
+
+	.to_unsigned:
+
+      mov rax, rdi
+      mov rbx, -1
+      imul rbx
+      mov rdi, rax
+
+   .write_signal:
+
+		push rdi
+		mov rdi, minus_signal_byte
+		call print_char
+		pop rdi
+
+	.print:
+
+		call print_uint
+		
+	pop rbx
+	ret
+
+
+read_char:
+
+	mov rax, 0x0
+	mov rdi, 0x0
+	mov rsi, byte_pointer
+	mov rdx, 0x1
+	syscall
+
+	cmp rax, -1
+	je .eof
+	jmp .not_eof
+
+	.eof:
+		mov rax, 0
+		jmp .end
+
+	.not_eof:	
+		mov rax, [rsi]
+
+	.end:
+		ret
+
 section .data
 newline_char: db 0xA
+minus_signal_byte: db 0x2D
