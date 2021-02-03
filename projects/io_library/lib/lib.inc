@@ -9,9 +9,9 @@ exit:
 	; ------------------------------------------------------ ;
 	;                     DESCRIPTION                        ;
 	; ------------------------------------------------------ ;
-	;                                                        ;                                                ;
+	;                                                        ;                                                
 	; Function args                                          ;
-	;	1) status_code (in RDI)                               ; 
+	;	1) status_code (in RDI)                          ; 
 	; Function return value                                  ;
 	;  this function doesn't return any value                ;
 	;                                                        ;
@@ -27,10 +27,10 @@ exit:
 
 string_length:
 
-   ; ------------------------------------------------------ ;
+        ; ------------------------------------------------------ ;
 	;                     DESCRIPTION                        ;
 	; ------------------------------------------------------ ;
-	;                                                        ;                                                ;
+	;                                                        ;                                                
 	; Function args                                          ;
 	;  RDI - pointer to a string terminated with the byte 0x0;
 	;                                                        ; 
@@ -60,12 +60,12 @@ print_string:
 	;                     DESCRIPTION                        ;
 	; ------------------------------------------------------ ; 
 	;                                                        ;  	
-	; Function args														;
-	;	RDI - pointer to a string terminated with the byte 0x0;
-	; 																			;
-	; Function return value(in RAX)								   ;
-	;	This function returns the bytes written in stdout.    ;
-	;  Otherwise, returns -1.											;
+	; Function args						 ;
+	;  RDI - pointer to a string terminated with the byte 0x0;
+	; 							 ;											;
+	; Function return value(in RAX)				 ;
+	;  This function returns the bytes written in stdout.    ;
+	;  Otherwise, returns -1.				 ;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	call string_length ; get the string length
@@ -86,12 +86,12 @@ print_char:
 	;                     DESCRIPTION                        ;
 	; ------------------------------------------------------ ; 
 	;                                                        ;  	
-	; Function args														;
-	;	RDI - pointer to a single byte                        ;
-	; 																			;
-	; Function return value(in RAX)								   ;
-	;	This function returns 1 in case of success. Otherwise,;
-	;  returns -1.															;
+	; Function args						 ;
+	;  RDI - pointer to a single byte                        ;
+	; 						         ;													;
+	; Function return value(in RAX)				 ;
+	;  This function returns 1 in case of success. Otherwise,;
+	;  returns -1.					         ;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	mov rdx, 0x1 ; a single byte will be printed
@@ -109,12 +109,12 @@ print_newline:
 	;                     DESCRIPTION                        ;
 	; ------------------------------------------------------ ; 
 	;                                                        ;  	
-	; Function args														;
-	;	This function doesn't require any argument            ;
-	; 																			;
-	; Function return value(in RAX)								   ;
-	;	This function returns 1 in case of success. Otherwise,;
-	;  returns -1.															;
+	; Function args					         ;
+	;  This function doesn't require any argument            ;
+	; 						         ;
+	; Function return value(in RAX)				 ;
+	;  This function returns 1 in case of success. Otherwise,;
+	;  returns -1.					         ;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	mov rdi, newline_char
@@ -128,12 +128,12 @@ print_uint:
 	; ------------------------------------------------------ ;
 	;                     DESCRIPTION                        ;
 	; ------------------------------------------------------ ;
-	;																			;
-	; Function args														;
-	;	RDI - an unsigned value											;
-	;																			;
-	; Function return value(in RAX)									;
-	;	this is still undefined											;
+	;							 ;												;
+	; Function args						 ;
+	;  RDI - an unsigned value				 ;
+	;							 ;												;
+	; Function return value(in RAX)				 ;
+	;  this is still undefined				 ;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	push rbx ; becuse RBX is callee-saved
