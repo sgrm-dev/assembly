@@ -64,48 +64,99 @@ print_newline:
 
 	ret
 
-; BUG here!!!
 
 print_uint:
 
-	push rbx
+	; ------------------------------------------------------ ;
+	;                     DESCRIPTION                        ;
+	; ------------------------------------------------------ ;
+	;																			;
+	; Function args														;
+	;	RDI - an unsigned value											;
+	;																			;
+	; Function return value(in RAX)									;
+	;	this is still undefined											;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	xor rax, rax
-	xor rbx, rbx
-	xor rcx, rcx
+	push rbx ; becuse RBX is callee-saved
 
-	mov rax, rdi
-	mov rbx, 0xA
+	xor rax, rax ; RAX = 0
+	xor rbx, rbx ; RBX = 0
+	xor rcx, rcx ; RCX = 0
+	xor rdx, rdx ; RDX = 0
+
+	mov rax, rdi ; dividend
+	mov rbx, 0xA ; divisor
 
 	.loopA:
 
-		inc rcx
-		div qword rbx
-		push rdx
-		xor rdx, rdx
-		cmp rax, 0x0
-		jne .loopA
-
-	xor rax, rax
+		inc rcx       ; how many digits was written in the stack?
+		div rbx       ; RAX = RAX / RBX 
+		push rdx      ; the remainder is stored in RDX
+		xor rdx, rdx  ; RDX = 0
+		cmp rax, 0x0  ; verify if RAX is equal to 0
+		jne .loopA    ; continue executing the loop
 	
 	.loopB:
 
-		add qword [rsp], 48
-		mov rdi, rsp
-		push rcx
-		call print_char
-		pop rcx
-		pop rax
-		dec rcx
-		cmp rcx, 0x0
-		jne .loopB
+		add qword [rsp], 48 ; this should be performed to get the ASCII
+		                    ; code of the digit in the stack
 
-	pop rbx
+		mov rdi, rsp        ; pointer to the digit in the stack
+		push rcx            ; because print_char changes RCX by executing
+								  ; the 'write' syscall
+
+		call print_char     ; invoke the function 'print_char'
+		pop rcx             ; get RCX value from the stack
+		pop rax             ; remove the digit in the top of the stack
+		dec rcx             ; RCX = RCX - 1
+		cmp rcx, 0x0        ; verify if RCX is equal to 0
+		jne .loopB          ; continue executing the loop 
+
+	pop rbx ; get the last rbx value from the stack
 	ret
 
 _start:
 
-	mov rdi, 18446744073709551615
+	; test cases
+
+	mov rdi, 1844
+	call print_uint
+	call print_newline
+
+	mov rdi, 2555
+	call print_uint
+	call print_newline
+
+	mov rdi, 0
+	call print_uint
+	call print_newline
+
+	mov rdi, 255587398236826
+	call print_uint
+	call print_newline
+
+	mov rdi, 2555222
+	call print_uint
+	call print_newline
+
+	mov rdi, 9
+	call print_uint
+	call print_newline
+
+	mov rdi, 777
+	call print_uint
+	call print_newline
+
+	mov rdi, 1221278755
+	call print_uint
+	call print_newline
+
+	mov rdi, 271627
+	call print_uint
+	call print_newline
+
+	mov rdi, 89796752292
 	call print_uint
 	call print_newline
 

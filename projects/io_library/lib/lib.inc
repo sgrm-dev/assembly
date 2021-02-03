@@ -136,18 +136,12 @@ print_uint:
 	;	this is still undefined											;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;					OBS: THIS FUNCTION HAS A BUG					;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;	If you execute this function at least twice, results	;
-	;  can be completly different as expected						;									
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 	push rbx ; becuse RBX is callee-saved
 
 	xor rax, rax ; RAX = 0
 	xor rbx, rbx ; RBX = 0
 	xor rcx, rcx ; RCX = 0
+	xor rdx, rdx ; RDX = 0
 
 	mov rax, rdi ; dividend
 	mov rbx, 0xA ; divisor
@@ -160,8 +154,6 @@ print_uint:
 		xor rdx, rdx  ; RDX = 0
 		cmp rax, 0x0  ; verify if RAX is equal to 0
 		jne .loopA    ; continue executing the loop
-
-	xor rax, rax ; RAX = 0
 	
 	.loopB:
 
@@ -180,6 +172,7 @@ print_uint:
 		jne .loopB          ; continue executing the loop 
 
 	pop rbx ; get the last rbx value from the stack
+	ret
 
 section .data
 newline_char: db 0xA
